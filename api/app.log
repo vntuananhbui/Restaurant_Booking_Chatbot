@@ -1,0 +1,1177 @@
+INFO:root:Session ID: None, User Query: Which countries were the top three manufacturers for Nike Brand footwear in fiscal year 2023, and what percentage of production did each contribute?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: e4eb0ba7-1af5-4259-bdd2-6652064d4d6f, AI Response: The text does not provide the top three countries for Nike Brand footwear production in fiscal year 2023. It only mentions that 10% of footwear production accounted for approximately 58% of NIKE Brand footwear production, but it does not specify the countries.
+
+However, it does provide information on the top three countries for Nike Brand apparel production in fiscal year 2023, which are:
+
+1. Vietnam - approximately 29% of production
+2. China - approximately 18% of production
+3. Cambodia - approximately 16% of production
+INFO:root:Session ID: e4eb0ba7-1af5-4259-bdd2-6652064d4d6f, User Query: Which countries were the top three manufacturers for Nike Brand footwear in fiscal year 2023, and what percentage of production did each contribute?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: e4eb0ba7-1af5-4259-bdd2-6652064d4d6f, AI Response: I apologize, but the provided text does not mention the top three countries for Nike Brand footwear production in fiscal year 2023, nor does it provide the percentage of production for each country. The text only discusses risk factors and investor information, but it does not provide specific data on footwear production by country.
+INFO:root:Session ID: None, User Query: i want to booking a place at NDC restaurant at 7:00pm at 28 Jan 2024, Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: e85c37eb-9320-4e03-9575-52386a982563, AI Response: I'd be happy to help you with that!
+
+To book a table at NDC restaurant for 7:00 pm on January 28, 2024, I'll need to guide you through the process. Since I'm a text-based AI assistant, I don't have direct access to the restaurant's booking system. However, I can provide you with a few options to make a reservation:
+
+**Option 1: Online Booking Platforms**
+
+You can try searching for NDC restaurant on online booking platforms like OpenTable, Bookatable, or ResDiary. If they have an account with these platforms, you can book a table directly through their website or mobile app.
+
+**Option 2: Restaurant's Website**
+
+Visit NDC restaurant's official website and look for a "Book a Table" or "Reservations" section. If they have an online booking system, you can fill out the form with your preferred date, time, and party size.
+
+**Option 3: Phone Call**
+
+You can call NDC restaurant directly to make a reservation over the phone. Make sure to have the date, time, and your contact information ready. You can search for their phone number online or check their website for contact details.
+
+**Option 4: Email or Contact Form**
+
+If you can't find an online booking system or prefer to book via email, you can try sending an email to NDC restaurant or filling out their contact form (if available on their website). Provide your name, contact information, preferred date, time, and party size.
+
+Before making a reservation, I recommend checking the restaurant's availability, dress code, and any specific policies they may have.
+
+Please let me know if you need any further assistance or have any questions!
+INFO:root:Session ID: None, User Query: hello i want to booking at 7pm 25/1/2025, Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:root:Session ID: None, User Query: hello i want to booking at 7pm 25/1/2025
+, Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:root:Session ID: None, User Query: KeyError: 'Input to ChatPromptTemplate is missing variables {\'\\n  "name"\'}.  Expected: [\'\\n  "name"\', \'chat_history\', \'context\', \'input\'] Received: [\'input\', \'chat_history\', \'context\']\nNote: if you intended {\n  "name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+
+from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from typing import List
+from langchain_core.documents import Document
+import os
+from chroma_utils import vectorstore
+from dotenv import load_dotenv
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain import hub
+from langgraph.graph import START, StateGraph
+
+
+# Querying chat models with Together AI
+from langchain_together import ChatTogether
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+gemini_api_key = os.getenv("GOOGLE_API_KEY")
+os.environ["GOOGLE_API_KEY"] = gemini_api_key
+
+llm = ChatGoogleGenerativeAI(
+model="gemini-1.5-pro",
+temperature=0,
+max_tokens=None,
+timeout=None,
+max_retries=2,
+)
+
+
+def LLM_LLama(model="meta-llama/Llama-3-70b-chat-hf"):
+    load_dotenv()
+
+    TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
+    os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
+    LLM_LLama = ChatTogether(
+        # together_api_key="YOUR_API_KEY",
+        model="meta-llama/Llama-3-70b-chat-hf",
+    )
+    return LLM_LLama
+
+def LLM_Gemini(model="gemini-1.5-pro"):
+    load_dotenv()
+    gemini_api_key = os.getenv("GOOGLE_API_KEY")
+    os.environ["GOOGLE_API_KEY"] = gemini_api_key
+
+    llm = ChatGoogleGenerativeAI(
+    model=model,
+    temperature=0,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
+    )
+    return llm
+
+prompt = hub.pull("rlm/rag-prompt")
+
+
+retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
+
+output_parser = StrOutputParser()
+
+
+
+
+# Set up prompts and chains
+contextualize_q_system_prompt = (
+    "Given a chat history and the latest user question "
+    "which might reference context in the chat history, "
+    "formulate a standalone question which can be understood "
+    "without the chat history. Do NOT answer the question, "
+    "just reformulate it if needed and otherwise return it as is."
+)
+
+contextualize_q_prompt = ChatPromptTemplate.from_messages([
+    ("system", contextualize_q_system_prompt),
+    MessagesPlaceholder("chat_history"),
+    ("human", "{input}"),
+])
+
+prompt_qa = (
+    "You are a helpful assistant for a restaurant. Answer user queries appropriately. "
+     "If the query is about general information (e.g., menu, hours, location), provide a clear and concise answer. "
+     "If the query is about booking a table, respond in the following JSON format:\n\n"
+     '{\n  "name": "<customer_name>",\n  "time": "<time>",\n  "date": "<date>",\n'
+     '  "nums_of_customers": "<number_of_customers>",\n  "restaurant_position": "<position>"\n}\n\n'
+     "If the query is incomplete or missing details, ask the user to provide the missing information. "
+     "Do not assume missing details."
+)
+
+qa_prompt = ChatPromptTemplate.from_messages([
+    ("system", prompt_qa
+    ),
+    ("system", "Context: {context}"),
+    MessagesPlaceholder(variable_name="chat_history"),
+    ("human", "{input}")
+])
+
+
+
+def get_simple_llm(model="meta-llama/Llama-3-70b-chat-hf"):
+    """
+    Dynamically load the LLM based on the model name.
+    """
+    if "llama" in model.lower():
+        return LLM_LLama(model=model)
+    elif "gemini" in model.lower():
+        return LLM_Gemini(model=model)
+    else:
+        raise ValueError(f"Unsupported model: {model}")
+
+def get_rag_chain(model="meta-llama/Llama-3-70b-chat-hf"):
+    """
+    Create a Retrieval-Augmented Generation (RAG) chain using the specified LLM.
+    By default, it uses LLaMA.
+    """
+    # Dynamically choose LLM based on the model parameter
+    if "meta-llama/Llama-3-70b-chat-hf":
+        llm = LLM_LLama(model=model)  # Use Together's LLaMA
+    elif "gemini-1.5-pro" in model.lower():
+        llm = LLM_Gemini(model=model)  # Use Gemini
+    else:
+        raise ValueError(f"Unsupported model: {model}")
+
+    # History-aware retriever setup
+    history_aware_retriever = create_history_aware_retriever(llm, retriever, contextualize_q_prompt)
+    
+    # Question-answering chain setup
+    question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
+    
+    # RAG chain setup
+    rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+    
+    return rag_chain
+, Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:root:Session ID: None, User Query:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macintosh/TA-DOCUMENT/StudyZone/FPT_WORK/IVY Training/IVY DEV/DailyReport/.venv/lib/python3.12/site-packages/langchain_core/prompts/base.py", line 176, in _validate_input
+    raise KeyError(
+KeyError: 'Input to ChatPromptTemplate is missing variables {\'\\n  "name"\'}.  Expected: [\'\\n  "name"\', \'chat_history\', \'context\', \'input\'] Received: [\'input\', \'chat_history\', \'context\']\nNote: if you intended {\n  "name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT ', Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:root:Session ID: None, User Query: hello i want to booking at 7pm 25/1/2025
+, Model: gemini-1.5-pro
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, AI Response: Hello! I'd be happy to help you with your booking.
+
+However, I need a bit more information from you. Could you please provide the following details:
+
+* Your name
+* The number of customers in your party
+* Your preferred restaurant position (e.g. indoor, outdoor, near the window, etc.)
+
+Here's an example of what the complete booking information should look like:
+
+{
+  "name": "<customer_name>",
+  "time": "7pm",
+  "date": "25/1/2025",
+  "nums_of_customers": "<number_of_customers>",
+  "restaurant_position": "<position>"
+}
+
+Please fill in the missing details, and I'll be happy to assist you with your booking!
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, User Query: my name is Tom, we have 3 people, indoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:chromadb.segment.impl.vector.local_persistent_hnsw:Number of requested results 2 is greater than number of elements in index 0, updating n_results = 0
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, AI Response: Thank you for providing the necessary information, Tom!
+
+Here's your booking confirmation:
+
+{
+  "name": "Tom",
+  "time": "7pm",
+  "date": "25/1/2025",
+  "nums_of_customers": "3",
+  "restaurant_position": "indoor"
+}
+
+Your booking is confirmed! We're looking forward to serving you and your party of 3 at 7pm on January 25th, 2025, at an indoor table. If you have any changes or cancellations, please let us know in advance.
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, User Query: i want to know about your restaurant information, what time open and close?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, AI Response: Tom's Restaurant is open at the following hours:
+
+* Monday to Friday: 11:00 AM - 10:00 PM
+* Saturday: 10:00 AM - 11:00 PM
+* Sunday: 10:00 AM - 9:00 PM
+
+Please note that these hours are subject to change, but we'll do our best to keep you updated. If you have any specific questions or concerns, feel free to ask!
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, User Query: ok i want to book at 12hAM, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, AI Response: I apologize, but Tom's Restaurant is not open at 12:00 AM (midnight). Our latest closing time is 11:00 PM on Saturdays, and 10:00 PM on other days.
+
+If you'd like to book a table, I can offer you a time slot between our opening hours and closing hours. Would you like to choose a different time?
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, User Query: 3pm, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 8c352c88-11fa-418d-b541-3bb9c34bc7fd, AI Response: Tom!
+
+Here's your updated booking information:
+
+{
+  "name": "Tom",
+  "time": "3pm",
+  "date": "25/1/2025",
+  "nums_of_customers": "3",
+  "restaurant_position": "indoor"
+}
+
+Your booking is confirmed for 3pm on January 25th, 2025, at an indoor table for 3 people. We're looking forward to serving you!
+INFO:root:Session ID: None, User Query: Give me some best dishes for my dinner, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: e724c5dd-82a4-4f1e-9b27-31d102a3d753, AI Response: We have a variety of delicious dishes to choose from. Here are some of our top recommendations for dinner:
+
+1. **Grilled Salmon with Lemon Butter** ($18.99) - A flavorful and healthy option, our grilled salmon is cooked to perfection and served with a zesty lemon butter sauce.
+2. **Ribeye Steak with Herb Butter** ($24.99) - For meat lovers, our ribeye steak is a must-try. Cooked to your desired level of doneness, it's served with a rich herb butter that complements the steak perfectly.
+3. **Chicken Alfredo Pasta** ($15.99) - A classic comfort food, our chicken alfredo pasta is a creamy and satisfying option. Fettuccine noodles are tossed in a rich parmesan sauce with grilled chicken and topped with parsley.
+4. **BBQ Pork Ribs** ($19.99) - If you're in the mood for something smoky and tangy, our BBQ pork ribs are a great choice. Slow-cooked to fall-off-the-bone tenderness, they're slathered in our signature BBQ sauce.
+5. **Margherita Pizza** ($12.99) - For a lighter option, our margherita pizza is a great choice. Fresh tomatoes, mozzarella cheese, and basil come together on a crispy crust for a flavorful and refreshing dinner.
+
+These are just a few of our popular dinner options. Do any of these catch your eye, or would you like more recommendations?
+INFO:root:Session ID: None, User Query: Hello what time the restaurant open?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 5203db2e-68c3-4c9e-a936-90c103db9ef0, AI Response: Hello! Tom's Restaurant is open at the following hours:
+
+* Monday to Friday: 11:00 AM - 10:00 PM
+* Saturday: 10:00 AM - 11:00 PM
+* Sunday: 10:00 AM - 9:00 PM
+
+Please let me know if you have any other questions!
+INFO:root:Session ID: 5203db2e-68c3-4c9e-a936-90c103db9ef0, User Query: i want to book at 3PM on 1/2/2025, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 5203db2e-68c3-4c9e-a936-90c103db9ef0, AI Response: To complete your booking, I need to know a few more details. Could you please provide the following information:
+
+* Your name
+* The number of customers in your party
+* Your preferred seating position (indoor or outdoor)
+
+Here's an example of what the booking information would look like:
+
+{
+  "name": "<your_name>",
+  "time": "3:00 PM",
+  "date": "1/2/2025",
+  "nums_of_customers": "<number_of_customers>",
+  "restaurant_position": "<indoor/outdoor>"
+}
+
+Please fill in the missing details, and I'll be happy to assist you with your booking!
+INFO:root:Session ID: 5203db2e-68c3-4c9e-a936-90c103db9ef0, User Query: my name is Tom, i have 8 people and indoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 5203db2e-68c3-4c9e-a936-90c103db9ef0, AI Response: Here is your booking information:
+
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "1/2/2025",
+  "nums_of_customers": "8",
+  "restaurant_position": "indoor"
+}
+
+Your booking is confirmed! We're looking forward to serving you and your party of 8 at 3:00 PM on January 2nd, 2025, at our indoor seating area. If you have any changes or cancellations, please let us know in advance. Thank you, and we'll see you soon!
+INFO:root:Session ID: None, User Query: i want to book a table for 8 people, name is tom, 3pm on 28/2/2025 outdoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 15703acf-d5dd-463f-b308-df67d14cf4e0, AI Response: Here is your booking confirmation:
+
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "28/02/2025",
+  "nums_of_customers": "8",
+  "restaurant_position": "Outdoor"
+}
+
+We look forward to serving you and your party at Tom's Restaurant!
+INFO:root:Session ID: None, User Query: i want to book a table for 8 people, name is tom, 3pm on 28/2/2025 outdoor
+, Model: gemini-1.5-pro
+INFO:root:Session ID: None, User Query: i want to book a table at 3pm on 27/2/2025 with 9 people and outdoor, my name is Tom, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 177a7adb-8934-4468-a5f6-8f441cdd9e5d, AI Response: <booking>
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "27/02/2025",
+  "nums_of_customers": 9,
+  "restaurant_position": "outdoor"
+}
+</booking>
+
+Your booking has been successfully recorded. We look forward to serving you at Tom's Restaurant on 27th February 2025 at 3:00 PM.
+INFO:root:Session ID: None, User Query: i want to book a table at 3pm, 8 people, 29/2/2025, indoor and my name is tom, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 2d5989de-380c-45e5-9712-78923d945d81, AI Response: <booking>
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "29/02/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "Indoor"
+}
+</booking>
+
+Please note that February only has 28 days, so it's not possible to book a table on 29/02/2025. Could you please provide a correct date?
+INFO:root:Session ID: None, User Query: i want to book a table at 3pm, 8 people, 29/2/2025, indoor and my name is tom, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 16af7f15-0cc3-45c6-8a3f-1efada7f59e2, AI Response: <booking>
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "29/02/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "Indoor"
+}
+</booking>
+
+Please note that February only has 28 days, so it's not possible to book a table on 29/02/2025. Could you please provide a correct date?
+INFO:root:Session ID: 16af7f15-0cc3-45c6-8a3f-1efada7f59e2, User Query: i want to book a table at 3pm, 8 people, 23/3/2025, indoor and my name is tom, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 16af7f15-0cc3-45c6-8a3f-1efada7f59e2, AI Response: <booking>
+{
+  "name": "Tom",
+  "time": "3:00 PM",
+  "date": "23/03/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "Indoor"
+}
+</booking>
+
+Your booking has been successfully recorded. We look forward to serving you on 23rd March 2025 at 3:00 PM.
+INFO:root:Session ID: None, User Query: i want to book a table at 8pm, 8 people, 29/2/2025, indoor and my name is yummi, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: faed8712-6c3d-41de-ace2-3486bfc70811, AI Response: <booking>
+{
+  "name": "Yummi",
+  "time": "8:00 PM",
+  "date": "29/02/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "Indoor"
+}
+</booking>
+
+Please note that February only has 28 days, so it's not possible to book a table on February 29th. Would you like to choose a different date?
+INFO:root:Session ID: faed8712-6c3d-41de-ace2-3486bfc70811, User Query: i want to book a table at 8pm, 8 people, 21/2/2025, indoor and my name is yummi
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: faed8712-6c3d-41de-ace2-3486bfc70811, AI Response: <booking>
+{
+  "name": "Yummi",
+  "time": "8:00 PM",
+  "date": "21/02/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "Indoor"
+}
+</booking>
+
+Your booking has been successfully made! We look forward to serving you on February 21st, 2025, at 8:00 PM.
+INFO:root:Session ID: None, User Query: hi introduce the restaurant, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 547ff30b-72e2-4ffa-974b-099f0a2b50ff, AI Response: Welcome to Tom's Restaurant! We're a family-owned restaurant known for our fusion of classic and contemporary dishes made with fresh, locally sourced ingredients. Our mission is to create an unforgettable dining experience for every guest. Whether you're celebrating a special occasion or enjoying a casual meal, our team is dedicated to providing exceptional service and culinary excellence.
+INFO:root:Session ID: None, User Query: i want to book a table at 9pm, 2 people, 29/3/2025, indoor and my name is Punhihi, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR:root:Failed to parse and insert booking: database is locked
+INFO:root:Session ID: None, User Query: i want to book a table at 9pm, 2 people, 29/3/2025, indoor and my name is Punhihi
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR:root:Failed to parse and insert booking: database is locked
+INFO:root:Session ID: None, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: c31977b8-1870-43e9-bc03-c2aa9c95fc4f, AI Response: Hello! Welcome to Tom's Restaurant. How can I assist you today? Would you like to know more about our menu, hours of operation, or perhaps make a reservation?
+INFO:root:Session ID: c31977b8-1870-43e9-bc03-c2aa9c95fc4f, User Query:   File "/Users/macintosh/TA-DOCUMENT/StudyZone/FPT_WORK/IVY Training/IVY DEV/DailyReport/DL-5-23.2.2024/RAG_FastAPI/api/main.py", line 68, in chat
+    insert_application_logs(session_id, query_input.question, answer, query_input.model.value)
+  File "/Users/macintosh/TA-DOCUMENT/StudyZone/FPT_WORK/IVY Training/IVY DEV/DailyReport/DL-5-23.2.2024/RAG_FastAPI/api/db_utils.py", line 32, in insert_application_logs
+    conn.execute('INSERT INTO application_logs (session_id, user_query, gpt_response, model) VALUES (?, ?, ?, ?)',
+sqlite3.OperationalError: database is locked, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: c31977b8-1870-43e9-bc03-c2aa9c95fc4f, AI Response: It seems like you're experiencing a database lock issue. This error occurs when multiple processes or threads are trying to access the same SQLite database simultaneously, and one of them has a lock on the database.
+
+To resolve this issue, you can try the following:
+
+1. **Use a thread-safe connection**: Make sure you're using a thread-safe connection to your SQLite database. You can do this by setting the `check_same_thread` parameter to `False` when creating your database connection:
+   ```
+   conn = sqlite3.connect('database.db', check_same_thread=False)
+   ```
+
+2. **Use a connection pool**: Instead of creating a new connection every time you need to access the database, consider using a connection pool. This way, multiple threads can share the same connection pool, reducing the likelihood of database locks.
+
+3. **Implement retry logic**: Wrap your database operations in a try-except block and implement retry logic to handle the `OperationalError`. This way, if the database is locked, your application can wait for a short period and then retry the operation.
+
+Here's an example of retry logic:
+   ```
+   import time
+
+   max_retries = 5
+   retry_delay = 0.5  # in seconds
+
+   for i in range(max_retries):
+       try:
+           conn.execute('INSERT INTO application_logs (session_id, user_query, gpt_response, model) VALUES (?, ?, ?, ?)',
+                         (session_id, query_input.question, answer, query_input.model.value))
+           break
+       except sqlite3.OperationalError as e:
+           if i < max_retries - 1:
+               time.sleep(retry_delay)
+               continue
+           else:
+               raise e
+   ```
+
+Remember to adjust the `max_retries` and `retry_delay` variables according to your application's needs.
+
+If none of these solutions work, you might need to consider using a more robust database system that supports concurrent access, such as PostgreSQL or MySQL.
+INFO:root:Session ID: c31977b8-1870-43e9-bc03-c2aa9c95fc4f, User Query: i want to book a table at 9 pm, 2 people, 29/3/2025, indoor and my name is punhihi, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: c31977b8-1870-43e9-bc03-c2aa9c95fc4f, AI Response: <booking>
+{
+  "name": "punhihi",
+  "time": "9:00 PM",
+  "date": "29/03/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</booking>
+
+Your booking has been successfully recorded. We look forward to serving you at Tom's Restaurant on 29th March 2025 at 9:00 PM.
+INFO:root:Session ID: None, User Query: i want to book a table at 3pm, 8 people, 29/2/2025, indoor and my name is tom, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 10351f32-0035-48aa-b323-23e61b2136f2, AI Response: <booking>
+{
+  "status": "notconfirm",
+  "name": "tom",
+  "time": "3pm",
+  "date": "29/2/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": "indoor"
+}
+</booking>
+
+Note: There is no February 29th in 2025, as 2025 is not a leap year. Please provide a valid date for the booking.
+INFO:root:Session ID: None, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 830d7189-5ffd-4f3c-a219-2bec1043362b, AI Response: Hello! Welcome to our restaurant. How can I assist you today? Would you like to know our menu, hours of operation, or perhaps book a table?
+INFO:root:Session ID: 830d7189-5ffd-4f3c-a219-2bec1043362b, User Query: i want to book a table at 6pm, 3 people, 29/5/2025, indoor and my name is Yummi, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Yummi', 'time': '6:00 PM', 'date': '29/5/2025', 'nums_of_customers': 3, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 830d7189-5ffd-4f3c-a219-2bec1043362b, AI Response: <booking>
+<confirm>
+{
+  "name": "Yummi",
+  "time": "6:00 PM",
+  "date": "29/5/2025",
+  "nums_of_customers": 3,
+  "restaurant_position": "indoor"
+}
+</confirm>
+</booking>
+
+Your booking has been confirmed! We look forward to serving you on 29/5/2025 at 6:00 PM.
+INFO:root:Session ID: 830d7189-5ffd-4f3c-a219-2bec1043362b, User Query: i want to book a table at 6pm
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': '', 'time': '6:00 PM', 'date': '', 'nums_of_customers': '', 'restaurant_position': ''}
+INFO:root:Session ID: 830d7189-5ffd-4f3c-a219-2bec1043362b, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "6:00 PM",
+  "date": "",
+  "nums_of_customers": "",
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+I'm happy to help you with your booking! However, I need more information from you. Could you please provide your name, the date you'd like to book, the number of customers, and your preferred seating position (indoor or outdoor)?
+INFO:root:Session ID: None, User Query: Hello give me the menu, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 10a00426-2e1d-4596-b03c-56a99c81a765, AI Response: Here is the menu for Tom's Restaurant:
+
+**Appetizers**
+
+1. Classic Caesar Salad - $8.99
+2. Tomato Bruschetta - $7.99
+3. Garlic Parmesan Wings - $9.99
+4. Spinach and Artichoke Dip - $8.99
+5. Crispy Calamari - $10.99
+
+**Soups & Salads**
+
+6. French Onion Soup - $6.99
+7. Creamy Mushroom Soup - $6.49
+8. Garden Fresh Salad - $7.49
+
+**Main Courses**
+
+9. Grilled Salmon with Lemon Butter - $18.99
+10. Ribeye Steak with Herb Butter - $24.99
+11. Chicken Alfredo Pasta - $15.99
+12. Vegan Buddha Bowl - $13.99
+13. BBQ Pork Ribs - $19.99
+14. Shrimp Scampi - $16.99
+15. Margherita Pizza - $12.99
+
+**Sandwiches & Burgers**
+
+16. Classic Cheeseburger - $11.99
+17. Spicy Chicken Sandwich - $12.49
+18. Veggie Delight Sandwich - $10.99
+19. Philly Cheesesteak - $13.49
+20. Grilled Turkey Club - $12.49
+
+**Sides**
+
+21. French Fries
+INFO:root:Session ID: None, User Query: helo, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: d50a889d-5638-407b-8be5-524b8492e5bc, AI Response: Hello! Welcome to Tom's Restaurant. How can I assist you today? Would you like to know our menu, hours of operation, or perhaps book a table?
+INFO:root:Session ID: None, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 411e3e4e-5b3f-4644-9a3e-69103f49b6bc, AI Response: Hello! Welcome to our restaurant. How can I assist you today? Would you like to know our menu, hours of operation, or perhaps book a table?
+INFO:root:Session ID: 411e3e4e-5b3f-4644-9a3e-69103f49b6bc, User Query: i want to book a table at 3pm, 2 people, 29/1/2025, indoor and my name is Tuan Anh, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Tuan Anh', 'time': '3:00 PM', 'date': '29/1/2025', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 411e3e4e-5b3f-4644-9a3e-69103f49b6bc, AI Response: <booking>
+<confirm>
+{
+  "name": "Tuan Anh",
+  "time": "3:00 PM",
+  "date": "29/1/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</confirm>
+</booking>
+
+Your booking has been confirmed! We look forward to serving you on 29/1/2025 at 3:00 PM.
+INFO:root:Session ID: 411e3e4e-5b3f-4644-9a3e-69103f49b6bc, User Query: i want to book a table at 3pm, 8 people, 29/2/2025, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': '', 'time': '3:00 PM', 'date': '29/2/2025', 'nums_of_customers': 8, 'restaurant_position': ''}
+INFO:root:Session ID: 411e3e4e-5b3f-4644-9a3e-69103f49b6bc, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "3:00 PM",
+  "date": "29/2/2025",
+  "nums_of_customers": 8,
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+I'm happy to help you with your booking! However, I need a bit more information from you. Could you please provide your name and preferred seating position (indoor or outdoor)? Additionally, please note that February only has 28 days, so we cannot accommodate a booking on 29/2/2025. Would you like to choose a different date?
+INFO:root:Session ID: None, User Query: Hello, i want to know the restaurant best option, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: b2d17257-7fbb-4802-9213-8afe2e5ca74f, AI Response: Welcome to Tom's Restaurant! We have a wide variety of dishes to choose from. However, I'd be happy to recommend some of our popular options.
+
+Our top-selling appetizer is the Garlic Parmesan Wings ($9.99), and our customers love our Grilled Salmon with Lemon Butter ($18.99) as a main course. If you're in the mood for something classic, our Classic Cheeseburger ($11.99) is a great choice.
+
+We also have some delicious vegan and vegetarian options, such as our Vegan Buddha Bowl ($13.99) and Veggie Delight Sandwich ($10.99).
+
+What type of cuisine are you in the mood for?
+INFO:root:Session ID: b2d17257-7fbb-4802-9213-8afe2e5ca74f, User Query: i want to booking table, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: b2d17257-7fbb-4802-9213-8afe2e5ca74f, AI Response: I'd be happy to help you book a table at Tom's Restaurant.
+
+To confirm your booking, I need some information from you. Could you please provide the following details:
+
+* Your name
+* The date you'd like to book a table
+* The time you'd like to book a table
+* The number of customers
+* Your preferred seating position (indoor or outdoor)
+
+Please provide the necessary information, and I'll let you know if the table is available.
+
+(Note: If you don't provide all the necessary details, I'll respond with a <notconfirm> message asking for the missing information.)
+INFO:root:Session ID: b2d17257-7fbb-4802-9213-8afe2e5ca74f, User Query: Name Tuan Anh Bui, i want to book tommorow at 8pm with 2 people and outside, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Tuan Anh Bui', 'time': '8:00 PM', 'date': 'tomorrow', 'nums_of_customers': 2, 'restaurant_position': 'outside'}
+INFO:root:Session ID: b2d17257-7fbb-4802-9213-8afe2e5ca74f, AI Response: <booking>
+<confirm>
+{
+  "name": "Tuan Anh Bui",
+  "time": "8:00 PM",
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": "outside"
+}
+</confirm>
+</booking>
+
+Your booking is confirmed! We're looking forward to seeing you tomorrow at 8:00 PM. You'll be seated at our outdoor patio, and we'll make sure to reserve a table for 2 people. If you have any changes or need to cancel, please let us know as soon as possible.
+INFO:root:Session ID: None, User Query: hello, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 0fe5164b-797c-478f-a105-0fff785d422e, AI Response: Hello! Welcome to our restaurant. How can I assist you today? Would you like to know our menu, hours of operation, or perhaps book a table?
+INFO:root:Session ID: None, User Query: i want to book in tomorrow at 9pm with 3 people, my name is Kiin, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Kiin', 'time': '9:00 PM', 'date': 'tomorrow', 'nums_of_customers': 3, 'restaurant_position': ''}
+INFO:root:Session ID: 1be33d7b-3cc3-4599-a04a-2cf5614b7f33, AI Response: <booking>
+<confirm>
+{
+  "name": "Kiin",
+  "time": "9:00 PM",
+  "date": "tomorrow",
+  "nums_of_customers": 3,
+  "restaurant_position": ""
+}
+</confirm>
+</booking>
+
+Please note that I didn't receive any information about the preferred restaurant position. If you have a specific request, please let me know. Otherwise, I'll assume it's open to any available position.
+INFO:root:Session ID: None, User Query: i want to book tommrow, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR:root:Failed to parse incomplete booking: expression expected after dictionary key and ':' (<string>, line 5)
+INFO:root:Session ID: d542ef81-75a6-4437-b38e-90854cf03897, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": ,
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To complete your booking, could you please provide the following information:
+
+* Your name
+* Preferred time for the booking
+* Number of customers
+* Restaurant position (indoor or outdoor seating)
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: d542ef81-75a6-4437-b38e-90854cf03897, User Query: tomorrow, 2 people, my name is Faker , Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': 'tomorrow', 'nums_of_customers': 2, 'restaurant_position': ''}
+INFO:root:Session ID: d542ef81-75a6-4437-b38e-90854cf03897, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To complete your booking, could you please provide the following information:
+
+* Preferred time for the booking
+* Restaurant position (indoor or outdoor seating)
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: d542ef81-75a6-4437-b38e-90854cf03897, User Query: tomorrow, 2 people, my name is Faker, indoor, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Unexpected booking format received.
+INFO:root:Session ID: d542ef81-75a6-4437-b38e-90854cf03897, AI Response: <booking>
+<confirm>
+{
+  "name": "Faker",
+  "time": "", 
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+I apologize, but I still need to know your preferred time for the booking. Could you please provide a specific time for tomorrow?
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: None, User Query: i want to book tomorrow, 2 people, my name is Faker, indoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': 'tomorrow', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 0c28ef43-fb04-470f-8b54-1e3dd2a0e472, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time you would like to book for tomorrow.
+INFO:root:Session ID: None, User Query: i want to book tomorrow, 2 people, my name is Faker, indoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': 'tomorrow', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 4c90d76d-3fff-4265-b330-da08630feb85, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time you would like to book for tomorrow.
+INFO:root:Session ID: 4c90d76d-3fff-4265-b330-da08630feb85, User Query: i want to book at  25/2/2025, 2 people, my name is Faker, indoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': '25/2/2025', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 4c90d76d-3fff-4265-b330-da08630feb85, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "25/2/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time you would like to book for 25/2/2025.
+INFO:root:Session ID: None, User Query: i want to book tomorrow, 2 people, my name is Faker, indoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': 'tomorrow', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 3067e6dc-a8a7-410b-a0ce-f87dc3d3cc2d, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time you would like to book for tomorrow.
+INFO:root:Session ID: 3067e6dc-a8a7-410b-a0ce-f87dc3d3cc2d, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 3067e6dc-a8a7-410b-a0ce-f87dc3d3cc2d, AI Response: Welcome to Tom's Restaurant! How can I assist you today? Would you like to book a table, ask about our menu, or inquire about our hours of operation?
+INFO:root:Session ID: 3067e6dc-a8a7-410b-a0ce-f87dc3d3cc2d, User Query: i want to book 28/5/2025, 2 people, my name is Faker, indoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Faker', 'time': '', 'date': '28/5/2025', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 3067e6dc-a8a7-410b-a0ce-f87dc3d3cc2d, AI Response: <booking>
+<notconfirm>
+{
+  "name": "Faker",
+  "time": "",
+  "date": "28/5/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time you would like to book for 28/5/2025.
+INFO:root:Session ID: None, User Query: hi, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 05312321-f58c-47de-ab86-58146f432196, AI Response: Hello! Welcome to Tom's Restaurant. How can I assist you today? Would you like to make a reservation, ask about our menu, or get more information about our restaurant?
+INFO:root:Session ID: 05312321-f58c-47de-ab86-58146f432196, User Query: i want to book at 1/3/2025, 2 people, my name is Faker, indoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Faker', 'time': '', 'date': '1/3/2025', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: 05312321-f58c-47de-ab86-58146f432196, AI Response: <booking>
+<confirm>
+{
+  "name": "Faker",
+  "time": "", 
+  "date": "1/3/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</confirm>
+</booking>
+
+I'm happy to help you with your booking, Faker! However, I noticed that you didn't specify a time for your reservation. Could you please let me know what time you would like to book for 1/3/2025?
+INFO:root:Session ID: None, User Query: i want to book a table tommrow, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': '', 'time': '', 'date': 'tomorrow', 'nums_of_customers': '', 'restaurant_position': ''}
+INFO:root:Session ID: 40dad69d-0f2d-40cc-84a6-e1c9991ef1b3, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "",
+  "date": "tomorrow",
+  "nums_of_customers": "",
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To complete your booking, could you please provide the following information:
+
+* Your name
+* Preferred time for the booking
+* Number of customers
+* Restaurant position (e.g., indoor, outdoor, etc.)
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: 40dad69d-0f2d-40cc-84a6-e1c9991ef1b3, User Query: 25/3/2025, my name is tom, with 3 people, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'tom', 'time': '', 'date': '25/3/2025', 'nums_of_customers': 3, 'restaurant_position': ''}
+INFO:root:Session ID: 40dad69d-0f2d-40cc-84a6-e1c9991ef1b3, AI Response: <booking>
+<notconfirm>
+{
+  "name": "tom",
+  "time": "",
+  "date": "25/3/2025",
+  "nums_of_customers": 3,
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To complete your booking, could you please provide the following information:
+
+* Preferred time for the booking
+* Restaurant position (e.g., indoor, outdoor, etc.)
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: None, User Query: i want to book table at 9pm, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR:root:Failed to parse incomplete booking: expression expected after dictionary key and ':' (<string>, line 5)
+INFO:root:Session ID: e33df573-0a28-4f00-9354-5eb3d777e896, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "9pm",
+  "date": "",
+  "nums_of_customers": ,
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To complete your booking, could you please provide the following information:
+
+* Your name
+* The date you would like to book the table for
+* The number of customers
+* Your preferred restaurant position (e.g. indoor, outdoor, near the window, etc.)
+
+Once I have this information, I'll be happy to confirm your booking.
+INFO:root:Session ID: None, User Query: i want to book table at 9pm
+, Model: gemini-1.5-pro
+INFO:root:Session ID: None, User Query: i want to book table at 9pm
+, Model: gemini-1.5-pro
+INFO:openai._base_client:Retrying request to /chat/completions in 0.415508 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.848140 seconds
+INFO:root:Session ID: None, User Query: Hello, can you introduce about your restaurant?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: ceaf7322-c572-4c28-a8b1-7607f7a8e3b6, AI Response: Welcome to Tom's Restaurant! We're a family-owned restaurant known for our fusion of classic and contemporary dishes made with fresh, locally sourced ingredients. Our mission is to create an unforgettable dining experience for every guest. Whether you're celebrating a special occasion or enjoying a casual meal, our team is dedicated to providing exceptional service and culinary excellence.
+INFO:root:Session ID: ceaf7322-c572-4c28-a8b1-7607f7a8e3b6, User Query: How can i booking?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': '', 'time': '', 'date': '', 'nums_of_customers': '', 'restaurant_position': ''}
+INFO:root:Session ID: ceaf7322-c572-4c28-a8b1-7607f7a8e3b6, AI Response: <booking>
+<notconfirm>
+{
+  "name": "",
+  "time": "",
+  "date": "",
+  "nums_of_customers": "",
+  "restaurant_position": ""
+}
+</notconfirm>
+</booking>
+
+To book a table, could you please provide me with the following information: your name, preferred time, date, number of customers, and your preferred restaurant position (indoor or outdoor seating)?
+INFO:root:Session ID: None, User Query: hello introduce about your restaurant, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, AI Response: Welcome to Tom's Restaurant! We're a family-owned restaurant known for our fusion of classic and contemporary dishes made with fresh, locally sourced ingredients. Our mission is to create an unforgettable dining experience for every guest. Whether you're celebrating a special occasion or enjoying a casual meal, our team is dedicated to providing exceptional service and culinary excellence.
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, User Query: How can i booking?
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, AI Response: To book a table at Tom's Restaurant, I'll need some information from you. Could you please provide the following details:
+
+* Your name
+* Preferred date and time for your reservation
+* Number of customers in your party
+* Your preferred seating position (indoor or outdoor)
+
+Once I have this information, I can assist you with your booking.
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, User Query: my name is tom, i want to book at 26/3/2025 with 3 people and outdoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Tom', 'time': '', 'date': '26/3/2025', 'nums_of_customers': 3, 'restaurant_position': 'outdoor'}
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, AI Response: <booking>
+<confirm>
+{
+  "name": "Tom",
+  "time": "", 
+  "date": "26/3/2025",
+  "nums_of_customers": 3,
+  "restaurant_position": "outdoor"
+}
+</confirm>
+</booking>
+
+I apologize, but I didn't receive your preferred time for the reservation. Could you please provide the time you would like to book for 26/3/2025?
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, User Query: my name is tom, i want to book at 26/3/2025 with 3 people and outdoor
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+WARNING:root:Incomplete booking received: {'name': 'Tom', 'time': '', 'date': '26/3/2025', 'nums_of_customers': 3, 'restaurant_position': 'outdoor'}
+INFO:root:Session ID: 64bae8aa-3621-4c53-8122-20bc1e627ca0, AI Response: I apologize, but I didn't receive your preferred time for the reservation. Could you please provide the time you would like to book for 26/3/2025?
+
+Here is the updated booking information:
+
+<booking>
+<notconfirm>
+{
+  "name": "Tom",
+  "time": "", 
+  "date": "26/3/2025",
+  "nums_of_customers": 3,
+  "restaurant_position": "outdoor"
+}
+</notconfirm>
+</booking>
+
+Please provide the time, and I'll be happy to assist you with your booking.
+INFO:root:Session ID: None, User Query: Hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Welcome to Tom's Restaurant! How can I assist you today? Would you like to make a reservation, ask about our menu, or get more information about our promotions and discounts?
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: is there parking available, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Yes, we have complimentary parking available on-site, and there's also additional parking in an adjacent lot. You don't have to worry about finding a spot to park your vehicle when you visit us!
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: give me some menu highlight, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: We're proud of our menu at Tom's Restaurant. Here are some highlights:
+
+**Appetizers:** Our Garlic Parmesan Wings ($9.99) and Crispy Calamari ($10.99) are fan favorites.
+
+**Main Courses:** Our Grilled Salmon with Lemon Butter ($18.99) and Ribeye Steak with Herb Butter ($24.99) are popular choices.
+
+**Sandwiches & Burgers:** Our Classic Cheeseburger ($11.99) and Spicy Chicken Sandwich ($12.49) are always in demand.
+
+**Sides:** You can't go wrong with our French Fries (available as a side dish).
+
+We have a lot more to offer, but these are some of the dishes that our customers love the most. Would you like more information or recommendations?
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: give me some main courses, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Here are our Main Courses at Tom's Restaurant:
+
+1. **Grilled Salmon with Lemon Butter** - $18.99
+2. **Ribeye Steak with Herb Butter** - $24.99
+3. **Chicken Alfredo Pasta** - $15.99
+4. **Vegan Buddha Bowl** - $13.99
+5. **BBQ Pork Ribs** - $19.99
+6. **Shrimp Scampi** - $16.99
+7. **Margherita Pizza** - $12.99
+
+These are just a few of our main course options. We have a variety of dishes to suit different tastes and dietary preferences. Would you like more information or recommendations?
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: give me information about your restaurant, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Here's some information about Tom's Restaurant:
+
+**Name:** Tom Restaurant
+**Location:** 554 Nguyen Dinh Chieu, District 3, Ho Chi Minh City
+**Hours of Operation:**
+	* Monday to Friday: 11:00 AM - 10:00 PM
+	* Saturday: 10:00 AM - 11:00 PM
+	* Sunday: 10:00 AM - 9:00 PM
+**Contact Information:**
+	* Phone: +84 945757071
+	* Email: vntuananhbui@gmail.com
+	* Website: www.gourmethaven.com
+**Special Features:**
+	* Indoor and outdoor seating
+	* Wheelchair accessible
+	* Free Wi-Fi
+	* Pet-friendly outdoor patio
+**About Us:**
+Tom's Restaurant is a family-owned restaurant known for its fusion of classic and contemporary dishes made with fresh, locally sourced ingredients. We're committed to providing a warm and welcoming atmosphere for our guests.
+
+I hope that helps! Let me know if you have any other questions.
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: give me information about your restaurant
+
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Here's some information about Tom's Restaurant:
+
+**Name:** Tom Restaurant
+**Location:** 554 Nguyen Dinh Chieu, District 3, Ho Chi Minh City
+**Hours of Operation:**
+	* Monday to Friday: 10:00 AM - 10:00 PM
+	* Saturday: 9:00 AM - 11:00 PM
+	* Sunday: 9:00 AM - 11:00 PM
+**Contact Information:**
+	* Phone: 0945757071
+	* Email: vntuananhbui@gmail.com
+	* Website: tomrestaurant.com
+**Special Features:**
+	* Indoor and outdoor seating
+	* Wheelchair accessible
+	* Free Wi-Fi
+	* Pet-friendly outdoor patio
+**About Us:**
+Tom's Restaurant is a family-owned restaurant known for its fusion of classic and contemporary dishes made with fresh, locally sourced ingredients. We're committed to providing a warm and welcoming atmosphere for our guests.
+
+I hope that helps! Let me know if you have any other questions.
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: what is best dishes in the world?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: I'm sorry, I cannot answer that based on the provided information. The context only provides information about Tom's Restaurant, its features, and customer testimonials, but it does not provide information about the best dishes in the world.
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: give me some Main Courses, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: Here are some Main Courses at Tom's Restaurant:
+
+1. **Pho Bo (Beef Noodle Soup)** - 90,000 VND
+2. **Grilled Lemongrass Chicken with Rice** - 100,000 VND
+3. **Banh Xeo (Vietnamese Savory Pancakes)** - 85,000 VND
+
+These are just a few of our main course options. We have a variety of dishes to suit different tastes and dietary preferences. Would you like more information or recommendations?
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: How to booking?, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: To book a table at Tom's Restaurant, please provide me with the following information:
+
+* Your name
+* Preferred date and time of visit
+* Number of guests
+* Preferred seating position (indoor or outdoor)
+
+You can respond in the following format:
+
+"Book a table for [name] on [date] at [time] for [number of guests] guests at [position]."
+
+I'll let you know if the booking is confirmed or not.
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, User Query: Book a table for [Tuan Anh] on [1/3/2025] at [8PM] for [2] guests at [indoor]., Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Tuan Anh', 'time': '8PM', 'date': '1/3/2025', 'nums_of_customers': 2, 'restaurant_position': 'indoor'}
+INFO:root:Session ID: a6745ba9-2aa3-4b50-a31f-9e3e59f408a3, AI Response: <booking>
+<confirm>
+{
+  "name": "Tuan Anh",
+  "time": "8PM",
+  "date": "1/3/2025",
+  "nums_of_customers": 2,
+  "restaurant_position": "indoor"
+}
+</confirm>
+</booking>
+
+Your booking is confirmed! We're looking forward to welcoming you to Tom's Restaurant on 1/3/2025 at 8PM.
+INFO:root:Session ID: None, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: fe3facbe-3723-4469-86df-d93c85b9eab3, AI Response: Hello! Welcome to Tom's Restaurant. How can I assist you today?
+INFO:root:Session ID: fe3facbe-3723-4469-86df-d93c85b9eab3, User Query: give me your locaition, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: fe3facbe-3723-4469-86df-d93c85b9eab3, AI Response: I'm sorry, I cannot answer that based on the provided information. The context does not mention the location of Tom's Restaurant.
+INFO:root:Session ID: fe3facbe-3723-4469-86df-d93c85b9eab3, User Query: give me your location, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: fe3facbe-3723-4469-86df-d93c85b9eab3, AI Response: I apologize, but the location of Tom's Restaurant is not specified in the provided context. However, it does mention that the reviews are from customers from USA, Vietnam, and Australia, but it does not provide the exact location of the restaurant.
+INFO:root:Session ID: None, User Query: give me your location
+, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: e2e10eac-cf30-4c3c-8f88-4b611d49d92d, AI Response: I'm sorry, I cannot answer that based on the provided information. The context does not mention the location of Tom's Restaurant.
+INFO:root:Session ID: None, User Query: hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: Hello! Welcome to Tom's Restaurant. How can I assist you today?
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, User Query: give me your location, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: I'm sorry, I cannot answer that based on the provided information. The context does not mention the location of Tom's Restaurant.
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, User Query: give me restaurant location, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: Tom's Restaurant is conveniently located at 702 Nguyen Van Linh, District 7, Ho Chi Minh City.
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, User Query: give me promotion, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: We have a few promotions going on! One of them is our Happy Hour, where you can enjoy 20% off beverages from 3:00 PM to 5:00 PM every weekday. We also have a Loyalty Program, where you can earn points with every visit and redeem them for discounts or free dishes. Additionally, we have Seasonal Specials, which you can stay updated on by following us on social media.
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, User Query: i want to book table with name is Tuan Anh Bui, on 1/3/2025, 9pm with 3 people outdoor, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Tuan Anh Bui', 'time': '9:00 PM', 'date': '1/3/2025', 'nums_of_customers': 3, 'restaurant_position': 'outdoor'}
+INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: <booking>
+<confirm>
+{
+  "name": "Tuan Anh Bui",
+  "time": "9:00 PM",
+  "date": "1/3/2025",
+  "nums_of_customers": 3,
+  "restaurant_position": "outdoor"
+}
+</confirm>
+</booking>
+INFO:root:Session ID: test-session, User Query: What is Gemini?, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: I'm sorry, I cannot answer that based on the provided information. The context only provides information about Tom's Restaurant and does not mention Gemini.

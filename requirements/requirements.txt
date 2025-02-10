@@ -1,0 +1,13 @@
+langchain
+langchain-openai
+langchain-core
+langchain_community
+docx2txt
+pypdf
+langchain_chroma
+python-multipart
+fastapi
+uvicorn
+langchain_huggingface
+langchain_google_genai
+langchain_together
