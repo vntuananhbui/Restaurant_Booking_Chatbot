@@ -1175,3 +1175,96 @@ INFO:root:Session ID: 4f4febe7-70a5-44c6-beaa-8e7f2e3282dd, AI Response: <bookin
 INFO:root:Session ID: test-session, User Query: What is Gemini?, Model: meta-llama/Llama-3-70b-chat-hf
 INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
 INFO:root:Session ID: test-session, AI Response: I'm sorry, I cannot answer that based on the provided information. The context only provides information about Tom's Restaurant and does not mention Gemini.
+INFO:root:Session ID: test-session, User Query: Hello, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: Welcome to Tom's Restaurant! How can I assist you today? Would you like to know more about our menu, hours of operation, or perhaps make a booking?
+INFO:root:Session ID: test-session, User Query: Hello, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:root:Session ID: test-session, User Query: Hello, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: Welcome to Tom's Restaurant! We're happy to have you here. How can I assist you today? Would you like to know more about our menu, hours of operation, or perhaps book a table?
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: Welcome to Tom's Restaurant! We're happy to have you here. How can I assist you today? Would you like to know more about our menu, hours of operation, or perhaps book a table?
+INFO:root:Session ID: test-session, User Query: Hello, how can i make the booking?, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: To make a booking, I'll need some information from you. Could you please provide me with your name, preferred date, time, number of customers, and your preferred restaurant position (e.g., indoor, outdoor, etc.)?
+INFO:root:Session ID: test-session, User Query: What is my first question?, Model: meta-llama/Llama-3-70b-chat-hf
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: test-session, AI Response: Your first question was "Hello".
+INFO:root:Session ID: None, User Query: Hello, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: Welcome to Lotus Riverside! We're happy to have you. How can I assist you today? Would you like to know more about our menu, hours, or location? Or perhaps you'd like to book a table?
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, User Query: introduce about your restaurant, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: Welcome to Lotus Riverside, a contemporary Vietnamese restaurant nestled in the heart of Ho Chi Minh City. We're delighted to share our story, menu, and services with you.
+
+At Lotus Riverside, we aim to combine the richness of traditional Vietnamese cuisine with a modern, welcoming ambiance. Our restaurant offers a serene view of the Saigon River and city skyline, making it the perfect spot to relax and enjoy a delicious meal.
+
+Our menu features a balanced selection of classic Vietnamese dishes, vegan-friendly options, and creative fusion delights. We also offer seasonal specialties to keep our menu fresh and exciting.
+
+Whether you're seeking the comfort of a traditional Vietnamese meal, the intrigue of fusion cuisine, or just a serene spot by the river, our doors are open with warm hospitality. We look forward to welcoming you to Lotus Riverside!
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, User Query: give me some your best food and price, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: Here are some of our signature dishes and their prices:
+
+1. **Sizzling Clay Pot Fish**: Fresh catch of the day (typically catfish or sea bass) braised in caramelized sauce with ginger and chili, served in a traditional clay pot to keep flavors concentrated and warm. **Price: 285,000 VND**
+2. **Lotus Fried Rice**: Fragrant jasmine rice stir-fried with lotus seeds, mushrooms, shrimp, and assorted vegetables, topped with a drizzle of homemade garlic sauce. **Price: 185,000 VND**
+3. **Coconut Curry Chicken**: Tender chicken simmered in rich coconut milk infused with lemongrass, galangal, and turmeric, served with steamed rice. **Price: 185,000 VND**
+
+These dishes are some of our most popular and highly-recommended options. We're confident you'll enjoy them!
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, User Query: what is your location, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: Our restaurant, Lotus Riverside, is located at:
+
+**Address:** 45 Tran Hung Dao Street, District 1, Ho Chi Minh City, Vietnam.
+
+We're situated along the Saigon River, offering a serene view of the water and city skyline. You can easily access our restaurant by taxi, personal vehicle, or motorbike. We provide ample parking space and convenient drop-off points.
+
+If you're familiar with the area, you can find us near Bach Dang Wharf and the Bitexco Financial Tower.
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, User Query: give me some traditional vietnamese food in your restaurant, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: Here are some traditional Vietnamese dishes we offer at Lotus Riverside:
+
+1. **Phở Bò (Beef Noodle Soup)**: Slow-cooked broth with aromatic spices, rice noodles, sliced beef, and fresh herbs. **Price: 90,000 VND**
+2. **Phở Gà (Chicken Noodle Soup)**: Lighter broth made from chicken bones, rice noodles, tender chicken slices, and fresh herbs. **Price: 90,000 VND**
+3. **Bún Chả Hà Nội**: Chargrilled pork patties and pork belly served with rice vermicelli, fresh herbs, and a tangy dipping sauce. **Price: 95,000 VND**
+4. **Cơm Tấm (Broken Rice)**: Broken rice served with grilled pork chop, fried egg, pickled vegetables, and a side of sweet and spicy sauce. **Price: 85,000 VND**
+
+These dishes are some of the most beloved and iconic Vietnamese dishes, and we're proud to offer them at Lotus Riverside. Would you like to try any of these?
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, User Query: i want to book a table, Model: gemini-1.5-pro
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:Booking confirmed and added to database: {'name': 'Your Name', 'time': '19:00', 'date': '2023-03-15', 'nums_of_customers': 4, 'restaurant_position': 'River View'}
+INFO:root:Session ID: 580a0137-044a-46b7-910f-7858bc3e808f, AI Response: I'd be happy to help you book a table at Lotus Riverside.
+
+To confirm your reservation, could you please provide me with the following details:
+
+* Your full name
+* Preferred date
+* Preferred time
+* Number of guests
+* Any special requests (e.g., river view, birthday celebration)
+
+Once I have this information, I'll be able to confirm your booking.
+
+Here's an example of how you can provide the details:
+
+<booking>
+<confirm>
+{
+  "name": "Your Name",
+  "time": "19:00",
+  "date": "2023-03-15",
+  "nums_of_customers": 4,
+  "restaurant_position": "River View"
+}
+</confirm>
+</booking>
+
+If you're ready, please go ahead and provide the necessary information.
