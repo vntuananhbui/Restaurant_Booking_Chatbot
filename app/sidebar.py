@@ -72,7 +72,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../api"
 
 
 
-from db_utils import get_all_bookings, delete_table, delete_booking_row
+from db_sqlachemy_utils import get_all_bookings, delete_table, delete_booking_row
 
 def display_booking_verification():
     """
