@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from pydantic_models import QueryInput, QueryResponse, DocumentInfo, DeleteFileRequest
 from langchain_utils import get_rag_chain
-from db_utils import insert_application_logs, get_chat_history, get_all_documents, insert_document_record, delete_document_record
+from db_sqlachemy_utils import insert_application_logs, get_chat_history, get_all_documents, insert_document_record, delete_document_record
 from chroma_utils import index_document_to_chroma, delete_doc_from_chroma
 import os
 import uuid
@@ -32,7 +32,7 @@ app = FastAPI()
 #     logging.info(f"Session ID: {session_id}, AI Response: {answer}")
 #     return QueryResponse(answer=answer, session_id=session_id, model=query_input.model)
 
-from db_utils import insert_booking
+from db_sqlachemy_utils import insert_booking
 
 
 
@@ -139,7 +139,7 @@ def delete_document(request: DeleteFileRequest):
     else:
         return {"error": f"Failed to delete document with file_id {request.file_id} from Chroma."}
 
-from db_utils import get_all_bookings
+from db_sqlachemy_utils import get_all_bookings
 
 @app.get("/getbooking")
 def get_booking_data():
